@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_devbox01_name": {
+            "value": null
+        },
+        "availabilitySets_DEVLABLPTVISUALSTUDIO2097059008000_externalid": {
+            "value": null
+        },
+        "images_devlpft001customizedimage_externalid": {
+            "value": null
+        },
+        "disks_devbox01_disk1_dbde1037764c4f2fb969f38f5b367071_externalid": {
+            "value": null
+        },
+        "networkInterfaces_devbox01_externalid": {
+            "value": null
+        }
+    }
+}

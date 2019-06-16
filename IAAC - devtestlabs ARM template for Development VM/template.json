@@ -1,0 +1,83 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_devbox01_name": {
+            "defaultValue": "devbox01",
+            "type": "String"
+        },
+        "availabilitySets_DEVLABLPTVISUALSTUDIO2097059008000_externalid": {
+            "defaultValue": "/subscriptions/645716b6-117f-45d2-bdf5-0d79a7a0bd74/resourceGroups/devlablptvisualstudio2097059008000/providers/Microsoft.Compute/availabilitySets/DEVLABLPTVISUALSTUDIO2097059008000",
+            "type": "String"
+        },
+        "images_devlpft001customizedimage_externalid": {
+            "defaultValue": "/subscriptions/645716b6-117f-45d2-bdf5-0d79a7a0bd74/resourceGroups/devtestlabsvisualstudiodevelopmentlpft/providers/microsoft.compute/images/devlpft001customizedimage",
+            "type": "String"
+        },
+        "disks_devbox01_disk1_dbde1037764c4f2fb969f38f5b367071_externalid": {
+            "defaultValue": "/subscriptions/645716b6-117f-45d2-bdf5-0d79a7a0bd74/resourceGroups/DEVLABLPTVISUALSTUDIO2097059008000/providers/Microsoft.Compute/disks/devbox01_disk1_dbde1037764c4f2fb969f38f5b367071",
+            "type": "String"
+        },
+        "networkInterfaces_devbox01_externalid": {
+            "defaultValue": "/subscriptions/645716b6-117f-45d2-bdf5-0d79a7a0bd74/resourceGroups/devlablptvisualstudio2097059008000/providers/Microsoft.Network/networkInterfaces/devbox01",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2018-10-01",
+            "name": "[parameters('virtualMachines_devbox01_name')]",
+            "location": "westus2",
+            "tags": {
+                "hidden-DevTestLabs-LabUId": "35f9085c-2089-4d61-ba11-c1eed2be6508",
+                "devtestlab": "Visual Studio LPFT",
+                "Dev001": "VisualStudioVM1",
+                "hidden-DevTestLabs-LogicalResourceUId": "9156420f-8e13-4731-b3ef-9c277814a580"
+            },
+            "properties": {
+                "availabilitySet": {
+                    "id": "[parameters('availabilitySets_DEVLABLPTVISUALSTUDIO2097059008000_externalid')]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_D4s_v3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "id": "[parameters('images_devlpft001customizedimage_externalid')]"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[concat(parameters('virtualMachines_devbox01_name'), '_disk1_dbde1037764c4f2fb969f38f5b367071')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_devbox01_disk1_dbde1037764c4f2fb969f38f5b367071_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_devbox01_name')]",
+                    "adminUsername": "devuserdevtestlabs01",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_devbox01_externalid')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
